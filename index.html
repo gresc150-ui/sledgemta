@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SledgeMTA — SLEDGE-GAME</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Felső navigáció -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="brand">SledgeMTA</a>
+
+            <ul class="nav-menu">
+                <li><a href="#hirek"><i class="fa-regular fa-newspaper"></i> Hírek</a></li>
+                <li><a href="#kozosseg"><i class="fa-solid fa-users"></i> Közösség</a></li>
+                <li><a href="#szabalyzat"><i class="fa-solid fa-book"></i> Szabályzat</a></li>
+                <li><a href="#shop" class="nav-accent"><i class="fa-regular fa-gem"></i> Prémium Shop</a></li>
+                <li><a href="#letoltes" class="nav-download"><i class="fa-solid fa-download"></i> SledgeMTA Letöltése</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero szekció -->
+    <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-gradient"></div>
+
+        <div class="hero-content">
+            <img src="logo.png" alt="SledgeMTA Logó" class="hero-logo">
+            <h1>Üdvözlünk a <span class="mint">SledgeMTA</span> oldalán!</h1>
+            <p class="subtitle">SLEDGE-GAME ROLEPLAY • ÚJ GENERÁCIÓS JÁTÉKÉLMÉNY</p>
+        </div>
+    </header>
+
+    <!-- Fő kártyák -->
+    <main class="main-wrapper">
+        <div class="cards-grid">
+
+            <!-- 1. Kártya: Főszerver státusz és grafikon -->
+            <div class="server-card">
+                <div class="card-header">
+                    <h2>SledgeMTA v1</h2>
+                    <span class="status-pill online" id="status-pill">
+                        <span class="dot"></span> <span id="status-text">Betöltés...</span>
+                    </span>
+                </div>
+
+                <div class="card-emblem">
+                    <img src="logo.png" alt="SledgeMTA Embléma" class="card-logo-img">
+                </div>
+
+                <div class="chart-box">
+                    <div class="player-counter">
+                        <strong id="player-count">–</strong>
+                        <span>Online játékos</span>
+                    </div>
+                    <canvas id="playerChart" height="95"></canvas>
+                </div>
+
+                <div class="card-actions">
+                    <a href="https://discord.gg/sajatszerver" target="_blank" class="action-btn">
+                        <i class="fa-brands fa-discord"></i>
+                        <span>Discord</span>
+                    </a>
+                    <a href="/ucp" class="action-btn">
+                        <i class="fa-solid fa-user-gear"></i>
+                        <span>UCP</span>
+                    </a>
+                    <a href="/forum" class="action-btn">
+                        <i class="fa-solid fa-comments"></i>
+                        <span>Fórum</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 2. Kártya: Gyors csatlakozás & Szerver adatok -->
+            <div class="server-card secondary-card">
+                <div class="card-header">
+                    <h2>SLEDGE-GAME Központ</h2>
+                    <span class="status-pill version">MTA:SA 1.6</span>
+                </div>
+
+                <div class="info-list">
+                    <div class="info-row">
+                        <span class="info-label"><i class="fa-solid fa-server"></i> Szerver IP cím</span>
+                        <button class="copy-ip-btn" onclick="copyIP()" title="Kattints a másoláshoz">
+                            <span id="server-ip">mtasa://127.0.0.1:22003</span>
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label"><i class="fa-solid fa-shield-halved"></i> Játékmód</span>
+                        <span class="info-value" id="gamemode">Sledge Roleplay (HU)</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label"><i class="fa-solid fa-microchip"></i> Férőhelyek</span>
+                        <span class="info-value" id="slots">– / – slot</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label"><i class="fa-solid fa-bullhorn"></i> Utolsó frissítés</span>
+                        <span class="info-value mint">v1.4 — Új járműrendszer</span>
+                    </div>
+                </div>
+
+                <div class="connect-box">
+                    <a href="mtasa://127.0.0.1:22003" class="btn-connect">
+                        <i class="fa-solid fa-play"></i> Azonnali csatlakozás
+                    </a>
+                    <p id="copy-toast" class="copy-toast">IP cím a vágólapra másolva!</p>
+                </div>
+
+                <div class="card-actions">
+                    <a href="#szabalyzat" class="action-btn">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                        <span>Szabályzat</span>
+                    </a>
+                    <a href="#tutorial" class="action-btn">
+                        <i class="fa-solid fa-circle-question"></i>
+                        <span>Kezdőknek</span>
+                    </a>
+                    <a href="#support" class="action-btn">
+                        <i class="fa-solid fa-headset"></i>
+                        <span>Támogatás</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 <strong>SledgeMTA (SLEDGE-GAME)</strong> — Minden jog fenntartva.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
