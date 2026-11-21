@@ -88,7 +88,7 @@ async function frissitStatusz() {
   const mode  = document.getElementById('gamemode');
 
   try {
-    const r = await fetch('status.php', { cache: 'no-store' });
+    const r = await fetch('/api/status', { cache: 'no-store' });
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const s = await r.json();
 
