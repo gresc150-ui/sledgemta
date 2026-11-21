@@ -1,14 +1,19 @@
-const URL   = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
-const TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
+const { createClient } = require('redis');
+
+let client;
+
+async function getClient() {
+  if (!client) {
+    client = createClient({ url: process.env.KV_REDIS_URL });
+    client.on('error', () => {});
+  }
+  if (!client.isOpen) await client.connect();
+  return client;
+}
 
 async function redis(cmd) {
-  const r = await fetch(URL, {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${TOKEN}` },
-    body: JSON.stringify(cmd),
-  });
-  const j = await r.json();
-  return j.result;
+  const c = await getClient();
+  return c.sendCommand(cmd);
 }
 
 module.exports = { redis };
