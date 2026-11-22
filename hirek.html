@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hírek — SledgeMTA (SLEDGE-GAME)</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .news-page-hero {
+            padding: 112px 24px 36px;
+            text-align: center;
+            background: linear-gradient(
+                180deg,
+                rgba(17, 36, 33, 0.72) 0%,
+                rgba(25, 42, 40, 0.45) 55%,
+                var(--bg-main) 100%
+            );
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .news-page-hero h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .news-page-hero p {
+            color: var(--text-secondary);
+            font-size: 13.5px;
+            max-width: 640px;
+            margin: 0 auto 20px;
+        }
+
+        .news-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 15px;
+            border-radius: 6px;
+            background: var(--bg-card);
+            border: 1px solid rgba(118, 255, 220, 0.25);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .news-back-btn:hover {
+            border-color: var(--mint);
+            color: var(--mint);
+        }
+
+        .news-page-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-page-main .news-section {
+            flex: 1;
+            border-top: none;
+            padding-top: 44px;
+        }
+
+        @media (max-width: 850px) {
+            .news-page-hero h1 {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Felső navigáció -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">SledgeMTA</a>
+
+            <ul class="nav-menu">
+                <li><a href="hirek.html" class="nav-accent"><i class="fa-regular fa-newspaper"></i> Hírek</a></li>
+                <li><a href="index.html#kozosseg"><i class="fa-solid fa-users"></i> Közösség</a></li>
+                <li><a href="szabalyzat.html"><i class="fa-solid fa-book"></i> Szabályzat</a></li>
+                <li><a href="index.html#letoltes" class="nav-download"><i class="fa-solid fa-download"></i> MTA:SA Letöltése</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="news-page-main">
+        <!-- Fejléc -->
+        <header class="news-page-hero">
+            <h1><span class="mint">SledgeMTA</span> Hírek</h1>
+            <p>Fejlesztési naplók, szerverbejelentések és fontos közlemények a SLEDGE-GAME közösségétől.</p>
+            <a href="index.html" class="news-back-btn"><i class="fa-solid fa-arrow-left"></i> Vissza a főoldalra</a>
+        </header>
+
+        <!-- Hírek szekció -->
+        <section class="news-section" id="hirek">
+            <div class="container">
+                <div class="news-list" id="news-container">
+                    <article class="news-item">
+                        <div class="news-date">2026. 11. 22.</div>
+                        <h3>Elindult a SledgeMTA hivatalos weboldala!</h3>
+                        <p>Üdvözlünk mindenkit a megújult felületen! Hamarosan érkeznek a további fejlesztési naplók és szerverinformációk.</p>
+                    </article>
+                </div>
+
+                <div class="load-more-wrap">
+                    <button type="button" class="load-more-btn" id="load-more-news">
+                        <i class="fa-regular fa-newspaper"></i> Régebbi hírek betöltése
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Lábléc -->
+    <footer class="site-footer">
+        <div class="container">
+            <p class="copyright">© 2026 SledgeMTA (SLEDGE-GAME) - Minden jog fenntartva!</p>
+            <p class="contact-line">
+                <i class="fa-solid fa-envelope"></i> Kapcsolatfelvétel: <a href="mailto:support@sledge-game.hu">support@sledge-game.hu</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
