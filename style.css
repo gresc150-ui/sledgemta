@@ -450,3 +450,315 @@ body {
   width: 100%;
   display: block;
 }
+
+/* Szekció alapok */
+.client-section, .news-section {
+    background-color: #1c1f22;
+    color: #e4e6eb;
+    padding: 60px 20px;
+}
+
+.client-section .container,
+.news-section .container,
+.social-banner .container,
+.site-footer .container {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+/* Kliens felső rész (Monitor + Kártya) */
+.client-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    margin-bottom: 45px;
+    flex-wrap: wrap;
+}
+
+/* CSS Monitor illusztráció */
+.monitor-preview {
+    flex: 1 1 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.monitor-frame {
+    width: 100%;
+    max-width: 420px;
+    height: 250px;
+    background: #111315;
+    border: 10px solid #0d0e10;
+    border-radius: 10px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 80px rgba(46, 179, 128, 0.15);
+    overflow: hidden;
+    position: relative;
+}
+
+.monitor-screen {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #252a30 0%, #14171a 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.monitor-screen .screen-logo {
+    width: 72px;
+    height: auto;
+}
+
+.monitor-screen span {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+.monitor-stand {
+    width: 56px;
+    height: 32px;
+    background: linear-gradient(180deg, #0d0e10, #222529);
+}
+
+.monitor-base {
+    width: 150px;
+    height: 8px;
+    background: #151719;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Kliens letöltő kártya */
+.client-card {
+    flex: 1 1 480px;
+    background-color: #16181a;
+    border-radius: 8px;
+    padding: 32px 36px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    text-align: center;
+}
+
+.client-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+    color: #ffffff;
+}
+
+.client-card .subtitle {
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #f1f3f5;
+}
+
+.client-card .desc {
+    color: #b0b5bc;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+
+.install-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto 22px;
+    text-align: left;
+    max-width: 380px;
+    line-height: 1.9;
+    font-size: 0.95rem;
+}
+
+.good-luck {
+    font-weight: 700;
+    margin-bottom: 18px;
+    color: #ffffff;
+}
+
+.btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #36b37e;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-download:hover {
+    background-color: #2d996b;
+    transform: translateY(-1px);
+}
+
+/* Rendszerkövetelmények */
+.sys-req-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+.req-card {
+    background-color: #16181a;
+    border-radius: 8px;
+    padding: 28px 32px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.req-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+    color: #ffffff;
+}
+
+.req-card ul {
+    padding-left: 18px;
+    line-height: 1.8;
+    font-size: 0.92rem;
+    color: #cfd4da;
+}
+
+.req-card li strong {
+    color: #ffffff;
+}
+
+/* Hírek szekció */
+.news-section {
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    color: #ffffff;
+}
+
+.news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.news-item {
+    background-color: #16181a;
+    padding: 22px 26px;
+    border-radius: 8px;
+    border-left: 4px solid #36b37e;
+}
+
+.news-date {
+    font-size: 0.82rem;
+    color: #8b929a;
+    margin-bottom: 6px;
+}
+
+.news-item h3 {
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+    color: #ffffff;
+}
+
+.news-item p {
+    font-size: 0.95rem;
+    color: #c4c9d0;
+    line-height: 1.5;
+}
+
+.load-more-wrap {
+    text-align: center;
+}
+
+.load-more-btn {
+    background: none;
+    border: none;
+    color: #3b9eff;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.load-more-btn:hover {
+    text-decoration: underline;
+}
+
+/* Közösségi média sáv */
+.social-banner {
+    background: linear-gradient(135deg, #25282c 0%, #1c1e22 50%, #26292e 100%);
+    padding: 55px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.social-grid {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.social-circle {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background-color: #17191b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.6rem;
+    text-decoration: none;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.social-circle:hover {
+    transform: translateY(-4px);
+    background-color: #1f2226;
+}
+
+.social-circle.discord { color: #5865F2; }
+.social-circle.tiktok { color: #ffffff; }
+.social-circle.youtube { color: #FF0000; }
+.social-circle.twitch { color: #9146FF; }
+
+/* Lábléc */
+.site-footer {
+    background-color: #141618;
+    color: #d0d5dd;
+    text-align: center;
+    padding: 28px 20px;
+    font-size: 0.9rem;
+}
+
+.site-footer .copyright {
+    margin-bottom: 10px;
+    color: #e4e6eb;
+}
+
+.footer-links {
+    margin-bottom: 10px;
+}
+
+.footer-links a,
+.contact-line a {
+    color: #3b9eff;
+    text-decoration: none;
+}
+
+.footer-links a:hover,
+.contact-line a:hover {
+    text-decoration: underline;
+}
+
+.footer-links span {
+    margin: 0 6px;
+    color: #6c737c;
+}
