@@ -378,13 +378,22 @@ body {
     transition: opacity 0.25s;
 }
 
-/* Kártyák alján lévő 3 ikon gomb */
+/* Kártyák alján lévő ikon gombok */
 .card-actions {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     background: #14171a;
     border-top: 1px solid var(--border-subtle);
     padding: 14px 10px;
+}
+
+.server-card:not(.secondary-card) .card-actions {
+    grid-template-columns: 1fr;
+    justify-items: center;
+}
+
+.server-card:not(.secondary-card) .action-btn {
+    width: 100%;
 }
 
 .action-btn {
@@ -444,11 +453,6 @@ body {
 }
 .status-pill.offline .dot {
   background: #ff5a5a;
-}
-
-#playerChart {
-  width: 100%;
-  display: block;
 }
 
 /* Szekció alapok */
