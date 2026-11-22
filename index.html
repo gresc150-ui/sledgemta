@@ -36,9 +36,9 @@
         </div>
     </header>
 
-    <!-- Fő kártyák -->
+    <!-- Fő kártya -->
     <main class="main-wrapper">
-        <div class="cards-grid">
+        <div class="cards-grid single-card-grid">
 
             <!-- 1. Kártya: Főszerver státusz és grafikon -->
             <div class="server-card">
@@ -65,58 +65,6 @@
                     <a href="https://discord.gg/sledgemta" target="_blank" rel="noopener noreferrer" class="action-btn">
                         <i class="fa-brands fa-discord"></i>
                         <span>Discord</span>
-                    </a>
-                </div>
-            </div>
-
-            <!-- 2. Kártya: Gyors csatlakozás & Szerver adatok -->
-            <div class="server-card secondary-card">
-                <div class="card-header">
-                    <h2>SLEDGE-GAME</h2>
-                    <span class="status-pill version">MTA:SA 1.6</span>
-                </div>
-
-                <div class="info-list">
-                    <div class="info-row">
-                        <span class="info-label"><i class="fa-solid fa-server"></i> Szerver IP cím</span>
-                        <button class="copy-ip-btn" onclick="copyIP()" title="Kattints a másoláshoz">
-                            <span id="server-ip">mtasa://127.0.0.1:22003</span>
-                            <i class="fa-regular fa-copy"></i>
-                        </button>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label"><i class="fa-solid fa-shield-halved"></i> Játékmód</span>
-                        <span class="info-value" id="gamemode">SledgeMTA(HU)</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label"><i class="fa-solid fa-microchip"></i> Férőhelyek</span>
-                        <span class="info-value" id="slots">– / – slot</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label"><i class="fa-solid fa-bullhorn"></i> Utolsó frissítés</span>
-                        <span class="info-value mint"></span>
-                    </div>
-                </div>
-
-                <div class="connect-box">
-                    <a href="mtasa://127.0.0.1:22003" class="btn-connect">
-                        <i class="fa-solid fa-play"></i> Azonnali csatlakozás
-                    </a>
-                    <p id="copy-toast" class="copy-toast">IP cím a vágólapra másolva!</p>
-                </div>
-
-                <div class="card-actions">
-                    <a href="szabalyzat.html" class="action-btn">
-                        <i class="fa-solid fa-scale-balanced"></i>
-                        <span>Szabályzat</span>
-                    </a>
-                    <a href="#tutorial" class="action-btn">
-                        <i class="fa-solid fa-circle-question"></i>
-                        <span>Kezdőknek</span>
-                    </a>
-                    <a href="mailto:support@sledge-game.hu" class="action-btn">
-                        <i class="fa-solid fa-headset"></i>
-                        <span>Támogatás</span>
                     </a>
                 </div>
             </div>
