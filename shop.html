@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prémium Shop — SledgeMTA (SLEDGE-GAME)</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .shop-hero {
+            padding: 112px 24px 40px;
+            text-align: center;
+            background: linear-gradient(
+                180deg,
+                rgba(17, 36, 33, 0.72) 0%,
+                rgba(25, 42, 40, 0.45) 55%,
+                var(--bg-main) 100%
+            );
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .shop-hero h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .shop-hero p {
+            color: var(--text-secondary);
+            font-size: 13.5px;
+            max-width: 660px;
+            margin: 0 auto 20px;
+        }
+
+        .shop-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 15px;
+            border-radius: 6px;
+            background: var(--bg-card);
+            border: 1px solid rgba(118, 255, 220, 0.25);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .shop-back-btn:hover {
+            border-color: var(--mint);
+            color: var(--mint);
+        }
+
+        .shop-main {
+            max-width: 1200px;
+            width: 100%;
+            margin: 40px auto 64px;
+            padding: 0 24px;
+            flex: 1;
+        }
+
+        .vip-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+            align-items: stretch;
+        }
+
+        .vip-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 26px 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.32);
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .vip-card:hover {
+            transform: translateY(-4px);
+        }
+
+        /* Kiemelt csomag jelvény */
+        .vip-badge {
+            position: absolute;
+            top: -11px;
+            right: 16px;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+        }
+
+        /* Színek rangonként */
+        .vip-silver { --tier-color: #cbd5e1; --tier-bg: rgba(203, 213, 225, 0.12); }
+        .vip-gold { --tier-color: #fbbf24; --tier-bg: rgba(251, 191, 36, 0.14); }
+        .vip-diamond { --tier-color: #38bdf8; --tier-bg: rgba(56, 189, 248, 0.14); }
+        .vip-emerald { --tier-color: #34d399; --tier-bg: rgba(52, 211, 153, 0.15); }
+
+        .vip-card:hover {
+            border-color: var(--tier-color);
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45);
+        }
+
+        .vip-emerald {
+            border-color: rgba(52, 211, 153, 0.35);
+        }
+
+        .vip-emerald .vip-badge {
+            background: #10b981;
+            color: #091510;
+        }
+
+        .vip-diamond .vip-badge {
+            background: #38bdf8;
+            color: #081824;
+        }
+
+        .vip-icon-wrap {
+            width: 52px;
+            height: 52px;
+            border-radius: 10px;
+            background: var(--tier-bg);
+            color: var(--tier-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .vip-title {
+            font-size: 19px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .vip-duration {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .vip-price {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--tier-color);
+            margin-bottom: 18px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .vip-price span {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .vip-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 24px;
+            flex: 1;
+        }
+
+        .vip-features li {
+            font-size: 13px;
+            color: #cbd5e1;
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            line-height: 1.45;
+        }
+
+        .vip-features li i {
+            color: var(--tier-color);
+            margin-top: 3px;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .btn-buy-vip {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--tier-color);
+            background: var(--tier-bg);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            font-size: 13.5px;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: 0.2s ease;
+        }
+
+        .btn-buy-vip:hover {
+            background: var(--tier-color);
+            color: #111618;
+        }
+
+        .shop-info-box {
+            margin-top: 34px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-left: 4px solid var(--mint);
+            border-radius: 6px;
+            padding: 18px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 13px;
+            color: #cbd5e1;
+        }
+
+        .shop-info-box strong {
+            color: #ffffff;
+        }
+
+        /* Vásárlási felugró ablak (Modal) */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 12, 15, 0.8);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 2000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-card {
+            background: #191c20;
+            border: 1px solid rgba(118, 255, 220, 0.25);
+            border-radius: 8px;
+            max-width: 440px;
+            width: 100%;
+            padding: 26px 28px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .modal-header h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: #ffffff;
+        }
+
+        .selected-pack-summary {
+            background: #14171a;
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: 12px 14px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13.5px;
+        }
+
+        .selected-pack-summary strong {
+            color: var(--mint);
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #cbd5e1;
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            background: #121417;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            font-size: 13.5px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--mint);
+        }
+
+        .modal-submit {
+            width: 100%;
+            padding: 12px;
+            background: var(--mint);
+            color: #111618;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 4px;
+            transition: 0.2s;
+        }
+
+        .modal-submit:hover {
+            background: #5ef3cd;
+        }
+
+        .order-result {
+            display: none;
+            margin-top: 14px;
+            padding: 12px;
+            border-radius: 6px;
+            background: var(--mint-dim);
+            border: 1px solid rgba(118, 255, 220, 0.3);
+            font-size: 12.5px;
+            color: #e2e8f0;
+            line-height: 1.5;
+        }
+
+        .order-result a {
+            color: var(--mint);
+            font-weight: 700;
+        }
+
+        @media (max-width: 1050px) {
+            .vip-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .vip-grid {
+                grid-template-columns: 1fr;
+            }
+            .shop-hero h1 {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Felső navigáció -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">SledgeMTA</a>
+
+            <ul class="nav-menu">
+                <li><a href="hirek.html"><i class="fa-regular fa-newspaper"></i> Hírek</a></li>
+                <li><a href="index.html#kozosseg"><i class="fa-solid fa-users"></i> Közösség</a></li>
+                <li><a href="szabalyzat.html"><i class="fa-solid fa-book"></i> Szabályzat</a></li>
+                <li><a href="shop.html" class="nav-accent"><i class="fa-regular fa-gem"></i> Prémium Shop</a></li>
+                <li><a href="index.html#letoltes" class="nav-download"><i class="fa-solid fa-download"></i> MTA:SA Letöltése</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Fejléc -->
+    <header class="shop-hero">
+        <h1><span class="mint">SledgeMTA</span> Prémium Shop</h1>
+        <p>Támogasd a szerver fejlesztését, és szerezz exkluzív VIP előnyöket, Prémium Pontot és egyedi extrákat a játékban.</p>
+        <a href="index.html" class="shop-back-btn"><i class="fa-solid fa-arrow-left"></i> Vissza a főoldalra</a>
+    </header>
+
+    <!-- VIP Csomagok -->
+    <main class="shop-main">
+        <div class="vip-grid">
+
+            <!-- 1. Ezüst VIP -->
+            <div class="vip-card vip-silver">
+                <div>
+                    <div class="vip-icon-wrap">
+                        <i class="fa-solid fa-medal"></i>
+                    </div>
+                    <h2 class="vip-title">Ezüst VIP</h2>
+                    <p class="vip-duration">30 napos időtartam</p>
+                    <div class="vip-price">1 500 Ft <span>/ 30 nap</span></div>
+
+                    <ul class="vip-features">
+                        <li><i class="fa-solid fa-check"></i> <span><strong>1 000 PP</strong> azonnali jóváírás</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span>Ezüst VIP rang a szerveren és Discordon</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span>+1 jármű és +1 ingatlan slot</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span>+10% fizetés bónusz alapmunkáknál</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span>VIP chat használati jogosultság</span></li>
+                    </ul>
+                </div>
+
+                <button type="button" class="btn-buy-vip" onclick="openVipModal('Ezüst VIP', '1 500 Ft')">
+                    <i class="fa-solid fa-cart-shopping"></i> Kiválasztás
+                </button>
+            </div>
+
+            <!-- 2. Arany VIP -->
+            <div class="vip-card vip-gold">
+                <div>
+                    <div class="vip-icon-wrap">
+                        <i class="fa-solid fa-crown"></i>
+                    </div>
+                    <h2 class="vip-title">Arany VIP</h2>
+                    <p class="vip-duration">30 napos időtartam</p>
+                    <div class="vip-price">3 000 Ft <span>/ 30 nap</span></div>
+
+                    <ul class="vip-features">
+                        <li><i class="fa-solid fa-check"></i> <span><strong>2 500 PP</strong> azonnali jóváírás</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span>Arany VIP rang a szerveren és Discordon</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span>+2 jármű és +1 ingatlan slot</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span>+20% fizetés bónusz alapmunkáknál</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span>Egyedi rendszám igénylés (1 db)</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span>Kiemelt várólista csatlakozáskor</span></li>
+                    </ul>
+                </div>
+
+                <button type="button" class="btn-buy-vip" onclick="openVipModal('Arany VIP', '3 000 Ft')">
+                    <i class="fa-solid fa-cart-shopping"></i> Kiválasztás
+                </button>
+            </div>
+
+            <!-- 3. Gyémánt VIP -->
+            <div class="vip-card vip-diamond">
+                <span class="vip-badge">Népszerű</span>
+                <div>
+                    <div class="vip-icon-wrap">
+                        <i class="fa-regular fa-gem"></i>
+                    </div>
+                    <h2 class="vip-title">Gyémánt VIP</h2>
+                    <p class="vip-duration">30 napos időtartam</p>
+                    <div class="vip-price">5 000 Ft <span>/ 30 nap</span></div>
+
+                    <ul class="vip-features">
+                        <li><i class="fa-solid fa-check"></i> <span><strong>5 000 PP</strong> azonnali jóváírás</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span>Gyémánt VIP rang a szerveren és Discordon</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span>+3 jármű és +2 ingatlan slot</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span>+30% fizetés bónusz alapmunkáknál</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span>Egyedi rendszám + egyedi duda</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span>Ingyenes jármű javító láda (heti 2 db)</span></li>
+                    </ul>
+                </div>
+
+                <button type="button" class="btn-buy-vip" onclick="openVipModal('Gyémánt VIP', '5 000 Ft')">
+                    <i class="fa-solid fa-cart-shopping"></i> Kiválasztás
+                </button>
+            </div>
+
+            <!-- 4. Smaragd VIP -->
+            <div class="vip-card vip-emerald">
+                <span class="vip-badge">Legjobb ajánlat</span>
+                <div>
+                    <div class="vip-icon-wrap">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h2 class="vip-title">Smaragd VIP</h2>
+                    <p class="vip-duration">30 napos időtartam</p>
+                    <div class="vip-price">8 000 Ft <span>/ 30 nap</span></div>
+
+                    <ul class="vip-features">
+                        <li><i class="fa-solid fa-check"></i> <span><strong>10 000 PP</strong> azonnali jóváírás</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span>Smaragd VIP rang a szerveren és Discordon</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span>+5 jármű és +3 ingatlan slot</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span>+40% fizetés bónusz alapmunkáknál</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span>Egyedi rendszám, duda és neon csomag</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span>Elsőbbségi támogatás és exkluzív kiegészítők</span></li>
+                    </ul>
+                </div>
+
+                <button type="button" class="btn-buy-vip" onclick="openVipModal('Smaragd VIP', '8 000 Ft')">
+                    <i class="fa-solid fa-cart-shopping"></i> Kiválasztás
+                </button>
+            </div>
+
+        </div>
+
+        <div class="shop-info-box">
+            <div>
+                <strong>Tudnivaló a vásárlásról:</strong> A támogatások teljes mértékben a SledgeMTA szerver fenntartására és fejlesztésére fordítódnak. Kérdés vagy elakadás esetén írj a <a href="mailto:support@sledge-game.hu" style="color: var(--mint); text-decoration: none;">support@sledge-game.hu</a> címre, vagy nyiss ticketet Discordon.
+            </div>
+        </div>
+    </main>
+
+    <!-- Vásárlási Modal -->
+    <div class="modal-overlay" id="vipModal" onclick="closeModalOnBg(event)">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>VIP Csomag igénylése</h3>
+                <button type="button" class="modal-close" onclick="closeVipModal()" aria-label="Bezárás">×</button>
+            </div>
+
+            <div class="selected-pack-summary">
+                <span id="modalPackName">Ezüst VIP</span>
+                <strong id="modalPackPrice">1 500 Ft</strong>
+            </div>
+
+            <form id="vipOrderForm" onsubmit="submitVipOrder(event)">
+                <div class="form-group">
+                    <label for="accountInput">In-Game Karakter név vagy Account ID</label>
+                    <input type="text" id="accountInput" placeholder="Pl.: Kovacs_Bence vagy #104" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="discordInput">Discord felhasználónév</label>
+                    <input type="text" id="discordInput" placeholder="Pl.: felhasznalo" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="paymentMethod">Fizetési mód</label>
+                    <select id="paymentMethod">
+                        <option value="Banki átutalás">Banki átutalás</option>
+                        <option value="PayPal">PayPal</option>
+                        <option value="Paysafecard">Paysafecard</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="modal-submit">Tovább a jóváíráshoz</button>
+            </form>
+
+            <div class="order-result" id="orderResult"></div>
+        </div>
+    </div>
+
+    <!-- Lábléc -->
+    <footer class="site-footer">
+        <div class="container">
+            <p class="copyright">© 2026 SledgeMTA (SLEDGE-GAME) - Minden jog fenntartva!</p>
+            <p class="contact-line">
+                <i class="fa-solid fa-envelope"></i> Kapcsolatfelvétel: <a href="mailto:support@sledge-game.hu">support@sledge-game.hu</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        let currentPack = '';
+        let currentPrice = '';
+
+        function openVipModal(packName, packPrice) {
+            currentPack = packName;
+            currentPrice = packPrice;
+            document.getElementById('modalPackName').textContent = packName;
+            document.getElementById('modalPackPrice').textContent = packPrice;
+            document.getElementById('orderResult').style.display = 'none';
+            document.getElementById('vipModal').classList.add('active');
+        }
+
+        function closeVipModal() {
+            document.getElementById('vipModal').classList.remove('active');
+        }
+
+        function closeModalOnBg(e) {
+            if (e.target.id === 'vipModal') {
+                closeVipModal();
+            }
+        }
+
+        function submitVipOrder(e) {
+            e.preventDefault();
+            const acc = document.getElementById('accountInput').value.trim();
+            const dc = document.getElementById('discordInput').value.trim();
+            const method = document.getElementById('paymentMethod').value;
+
+            const resultBox = document.getElementById('orderResult');
+            resultBox.innerHTML =
+                `Rögzített adatok: <strong>${currentPack}</strong> (${currentPrice}) — Karakter/ID: <strong>${acc}</strong>, Discord: <strong>${dc}</strong>, Fizetés: <strong>${method}</strong>.<br><br>` +
+                `A jóváíráshoz nyiss egy támogatási ticketet a <a href="https://discord.gg/sledgemta" target="_blank" rel="noopener noreferrer">Discord szerverünkön</a>, vagy küldd el az adatokat a <a href="mailto:support@sledge-game.hu?subject=VIP%20v%C3%A1s%C3%A1rl%C3%A1s%20-%20${encodeURIComponent(currentPack)}&body=Csomag:%20${encodeURIComponent(currentPack)}%20(${encodeURIComponent(currentPrice)})%0AKarakter/ID:%20${encodeURIComponent(acc)}%0ADiscord:%20${encodeURIComponent(dc)}%0AFizet%C3%A9si%20m%C3%B3d:%20${encodeURIComponent(method)}">support@sledge-game.hu</a> címre.`;
+            resultBox.style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
