@@ -87,7 +87,6 @@
             transform: translateY(-4px);
         }
 
-        /* Kiemelt csomag jelvény */
         .vip-badge {
             position: absolute;
             top: -11px;
@@ -100,7 +99,6 @@
             text-transform: uppercase;
         }
 
-        /* Színek rangonként */
         .vip-silver { --tier-color: #cbd5e1; --tier-bg: rgba(203, 213, 225, 0.12); }
         .vip-gold { --tier-color: #fbbf24; --tier-bg: rgba(251, 191, 36, 0.14); }
         .vip-diamond { --tier-color: #38bdf8; --tier-bg: rgba(56, 189, 248, 0.14); }
@@ -235,7 +233,6 @@
             color: #ffffff;
         }
 
-        /* Vásárlási felugró ablak (Modal) */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -387,7 +384,6 @@
 </head>
 <body>
 
-    <!-- Felső navigáció -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="brand">SledgeMTA</a>
@@ -402,14 +398,12 @@
         </div>
     </nav>
 
-    <!-- Fejléc -->
     <header class="shop-hero">
         <h1><span class="mint">SledgeMTA</span> Prémium Shop</h1>
         <p>Támogasd a szerver fejlesztését, és szerezz exkluzív VIP előnyöket, Prémium Pontot és egyedi extrákat a játékban.</p>
         <a href="index.html" class="shop-back-btn"><i class="fa-solid fa-arrow-left"></i> Vissza a főoldalra</a>
     </header>
 
-    <!-- VIP Csomagok -->
     <main class="shop-main">
         <div class="vip-grid">
 
@@ -523,7 +517,6 @@
         </div>
     </main>
 
-    <!-- Vásárlási Modal -->
     <div class="modal-overlay" id="vipModal" onclick="closeModalOnBg(event)">
         <div class="modal-card">
             <div class="modal-header">
@@ -563,7 +556,6 @@
         </div>
     </div>
 
-    <!-- Lábléc -->
     <footer class="site-footer">
         <div class="container">
             <p class="copyright">© 2026 SledgeMTA (SLEDGE-GAME) - Minden jog fenntartva!</p>
@@ -574,6 +566,8 @@
     </footer>
 
     <script>
+        const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1575296728540905673/raeR8RooEJcLnfAq2pCwCx3M0yhWxJXADYCPR0MAl84dI7ymJxkaJUgz3ueCLM2y1iFX';
+
         let currentPack = '';
         let currentPrice = '';
 
@@ -596,17 +590,51 @@
             }
         }
 
-        function submitVipOrder(e) {
+        async function submitVipOrder(e) {
             e.preventDefault();
             const acc = document.getElementById('accountInput').value.trim();
             const dc = document.getElementById('discordInput').value.trim();
             const method = document.getElementById('paymentMethod').value;
-
             const resultBox = document.getElementById('orderResult');
-            resultBox.innerHTML =
-                `Rögzített adatok: <strong>${currentPack}</strong> (${currentPrice}) — Karakter/ID: <strong>${acc}</strong>, Discord: <strong>${dc}</strong>, Fizetés: <strong>${method}</strong>.<br><br>` +
-                `A jóváíráshoz nyiss egy támogatási ticketet a <a href="https://discord.gg/sledgemta" target="_blank" rel="noopener noreferrer">Discord szerverünkön</a>, vagy küldd el az adatokat a <a href="mailto:support@sledge-game.hu?subject=VIP%20v%C3%A1s%C3%A1rl%C3%A1s%20-%20${encodeURIComponent(currentPack)}&body=Csomag:%20${encodeURIComponent(currentPack)}%20(${encodeURIComponent(currentPrice)})%0AKarakter/ID:%20${encodeURIComponent(acc)}%0ADiscord:%20${encodeURIComponent(dc)}%0AFizet%C3%A9si%20m%C3%B3d:%20${encodeURIComponent(method)}">support@sledge-game.hu</a> címre.`;
-            resultBox.style.display = 'block';
+            const submitBtn = e.target.querySelector('.modal-submit');
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Küldés...';
+
+            const payload = {
+                username: 'SledgeMTA Shop',
+                content:
+                    `**Új VIP csomag igénylés**\n` +
+                    `Csomag: **${currentPack}** (${currentPrice})\n` +
+                    `Karakter / Account ID: \`${acc}\`\n` +
+                    `Discord: \`${dc}\`\n` +
+                    `Fizetési mód: **${method}**`
+            };
+
+            try {
+                const res = await fetch(DISCORD_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!res.ok) {
+                    throw new Error('Webhook hiba: ' + res.status);
+                }
+
+                resultBox.innerHTML =
+                    `Igénylés elküldve Discordon: <strong>${currentPack}</strong> (${currentPrice}) — Karakter/ID: <strong>${acc}</strong>, Discord: <strong>${dc}</strong>, Fizetés: <strong>${method}</strong>.<br><br>` +
+                    `A jóváíráshoz lépj be a <a href="https://discord.gg/sledgemta" target="_blank" rel="noopener noreferrer">Discord szerverünkre</a>, vagy írj a <a href="mailto:support@sledge-game.hu">support@sledge-game.hu</a> címre.`;
+                resultBox.style.display = 'block';
+                e.target.reset();
+            } catch (err) {
+                resultBox.innerHTML =
+                    `Nem sikerült elküldeni az értesítést Discordon. Kérlek próbáld újra, vagy írj a <a href="mailto:support@sledge-game.hu">support@sledge-game.hu</a> címre.`;
+                resultBox.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Tovább a jóváíráshoz';
+            }
         }
     </script>
 
