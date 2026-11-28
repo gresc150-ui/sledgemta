@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         .xmas-countdown-bar {
-            margin: 0 auto 22px;
+            margin: 0 auto 24px;
             max-width: 1120px;
             padding: 12px 18px;
             border-radius: 8px;
@@ -43,6 +43,174 @@
             font-size: 15px;
         }
 
+        .snow-toggle-btn {
+            background: rgba(118, 255, 220, 0.08);
+            border: 1px solid rgba(241, 248, 255, 0.18);
+            color: #f1f5f9;
+            padding: 6px 11px;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .snow-toggle-btn:hover {
+            border-color: #76ffdc;
+            color: #76ffdc;
+            background: rgba(118, 255, 220, 0.14);
+        }
+
+        .snow-toggle-btn.is-off {
+            border-color: rgba(217, 43, 58, 0.45);
+            color: #ff8a94;
+            background: rgba(217, 43, 58, 0.12);
+        }
+
+        /* Karácsonyi nyitás kiemelő kártyák */
+        .highlights-section {
+            background-color: #181c22;
+            padding: 10px 20px 55px;
+        }
+
+        .highlights-grid {
+            max-width: 1140px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .highlight-card {
+            position: relative;
+            background-color: #12161b;
+            border: 1px solid rgba(241, 248, 255, 0.16);
+            border-top: 2px solid rgba(241, 248, 255, 0.45);
+            border-radius: 8px;
+            padding: 24px 22px;
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
+            transition: transform 0.22s ease, border-color 0.22s ease;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(118, 255, 220, 0.42);
+        }
+
+        .highlight-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+            font-size: 16px;
+            background: rgba(217, 43, 58, 0.16);
+            color: #ff7b86;
+            border: 1px solid rgba(217, 43, 58, 0.35);
+        }
+
+        .highlight-card:nth-child(2) .highlight-icon {
+            background: rgba(118, 255, 220, 0.12);
+            color: #76ffdc;
+            border-color: rgba(118, 255, 220, 0.3);
+        }
+
+        .highlight-card h3 {
+            font-size: 15.5px;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .highlight-card p {
+            font-size: 13.5px;
+            line-height: 1.55;
+            color: #b8c0ca;
+        }
+
+        /* GYIK szekció */
+        .faq-section {
+            background-color: #161a20;
+            padding: 50px 20px 60px;
+            border-top: 1px solid rgba(241, 248, 255, 0.08);
+        }
+
+        .faq-list {
+            max-width: 920px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .faq-item {
+            background-color: #12161b;
+            border: 1px solid rgba(241, 248, 255, 0.14);
+            border-left: 3px solid #d92b3a;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .faq-item summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 16px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-item summary::after {
+            content: "+";
+            color: #76ffdc;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1;
+            transition: transform 0.2s ease;
+        }
+
+        .faq-item[open] summary {
+            color: #76ffdc;
+            border-bottom: 1px solid rgba(241, 248, 255, 0.08);
+        }
+
+        .faq-item[open] summary::after {
+            content: "–";
+        }
+
+        .faq-answer {
+            padding: 14px 20px 18px;
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: #c4c9d0;
+        }
+
+        @media (max-width: 900px) {
+            .highlights-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 850px) {
+            .snow-toggle-btn {
+                padding: 5px 9px;
+                font-size: 11.5px;
+            }
+        }
+
         #snow-canvas {
             position: fixed;
             top: 0;
@@ -68,6 +236,11 @@
                 <li><a href="shop.html" class="nav-accent"><i class="fa-regular fa-gem"></i> Prémium Shop</a></li>
                 <li><a href="#letoltes" class="nav-download"><i class="fa-solid fa-download"></i> MTA:SA Letöltése</a></li>
             </ul>
+
+            <button type="button" class="snow-toggle-btn" id="snowToggleBtn" onclick="handleSnowToggle()" aria-label="Hóesés kapcsoló">
+                <i class="fa-regular fa-snowflake"></i>
+                <span id="snowToggleLabel">Hó: BE</span>
+            </button>
         </div>
     </nav>
 
@@ -124,6 +297,29 @@
 
         </div>
     </main>
+
+    <!-- Mit várhatsz a karácsonyi nyitáson -->
+    <section class="highlights-section" id="nyitas">
+        <div class="highlights-grid">
+            <article class="highlight-card">
+                <div class="highlight-icon"><i class="fa-regular fa-snowflake"></i></div>
+                <h3>Karácsonyi start (dec. 25–26.)</h3>
+                <p>Az ünnepi időszakban rajtol a szerver téli hangulattal, szezonális meglepetésekkel és közösségi eseményekkel.</p>
+            </article>
+
+            <article class="highlight-card">
+                <div class="highlight-icon"><i class="fa-solid fa-sliders"></i></div>
+                <h3>Csiszolt rendszerek</h3>
+                <p>Folyamatosan tesztelt és finomhangolt alaprendszerek, hogy a nyitástól kezdve gördülékeny legyen a játékmenet.</p>
+            </article>
+
+            <article class="highlight-card">
+                <div class="highlight-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3>Frakciók és közösség</h3>
+                <p>Aktív RP-lehetőségek, frakciók és átlátható szabályok mellett építjük a közösséget a Discord szerveren is.</p>
+            </article>
+        </div>
+    </section>
 
     <!-- MTA:SA csatlakozás és Rendszerkövetelmények -->
     <section class="client-section" id="letoltes">
@@ -187,6 +383,32 @@
         </div>
     </section>
 
+    <!-- Gyakori kérdések -->
+    <section class="faq-section" id="gyik">
+        <h2 class="section-title">Gyakori kérdések</h2>
+        <div class="faq-list">
+            <details class="faq-item">
+                <summary>Mikor pontosan a SledgeMTA nyitása?</summary>
+                <div class="faq-answer">A tervek szerint december 25–26-án, az ünnepi időszakban indul a szerver. A pontos nyitási részleteket a Discord szerveren és az oldalon is közzétesszük.</div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Kell külön egyedi klienst telepíteni a játékhoz?</summary>
+                <div class="faq-answer">Nem, a szerver hagyományos Multi Theft Auto: San Andreas (MTA:SA) klienssel működik egy alap Grand Theft Auto: San Andreas telepítés mellett.</div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Hol tudok érdeklődni a frakciókról és a legfrissebb hírekről?</summary>
+                <div class="faq-answer">A hivatalos Discord szerveren (<a href="https://discord.gg/sledgemta" target="_blank" rel="noopener noreferrer" style="color: #76ffdc;">discord.gg/sledgemta</a>) és a <a href="hirek.html" style="color: #76ffdc;">Hírek</a> oldalon találod a legfrissebb bejelentéseket.</div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Ki tudom kapcsolni a hóesést az oldalon?</summary>
+                <div class="faq-answer">Igen, a felső sávban található <strong>Hó: BE/KI</strong> gombbal bármikor kikapcsolhatod, a böngésző pedig megjegyzi a beállításodat.</div>
+            </details>
+        </div>
+    </section>
+
     <!-- Közösségi média sáv -->
     <section class="social-banner" id="kozosseg">
         <div class="container social-grid">
@@ -231,6 +453,30 @@
         }
         updateCountdown();
         setInterval(updateCountdown, 1000);
+
+        function syncSnowButton() {
+            const snow = document.getElementById("snow-canvas");
+            const btn = document.getElementById("snowToggleBtn");
+            const label = document.getElementById("snowToggleLabel");
+            if (!snow || !btn || !label) return;
+            const isOff = snow.style.display === "none";
+            label.textContent = isOff ? "Hó: KI" : "Hó: BE";
+            btn.classList.toggle("is-off", isOff);
+        }
+
+        function handleSnowToggle() {
+            if (typeof toggleSnow === "function") {
+                toggleSnow();
+            } else {
+                const snow = document.getElementById("snow-canvas");
+                if (snow) {
+                    snow.style.display = snow.style.display === "none" ? "block" : "none";
+                }
+            }
+            syncSnowButton();
+        }
+
+        window.addEventListener("DOMContentLoaded", syncSnowButton);
 
         (() => {
             const canvas = document.getElementById("snow-canvas");
