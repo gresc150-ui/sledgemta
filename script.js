@@ -1,9 +1,13 @@
 // ---------- IP másolása ----------
 function copyIP() {
-  const ip = document.getElementById('server-ip').textContent.trim();
+  const ipEl = document.getElementById('server-ip');
   const toast = document.getElementById('copy-toast');
+  if (!ipEl) return;
+
+  const ip = ipEl.textContent.trim();
 
   const showToast = () => {
+    if (!toast) return;
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 2000);
   };
@@ -26,7 +30,7 @@ let chartData = [];
 
 function drawChart() {
   const canvas = document.getElementById('playerChart');
-  if (!canvas) return;
+  if (!canvas || !canvas.parentElement) return;
 
   const dpr = window.devicePixelRatio || 1;
   const w = canvas.parentElement.clientWidth;
@@ -61,7 +65,7 @@ function drawChart() {
     ctx.bezierCurveTo(cx, pts[i - 1].y, cx, pts[i].y, pts[i].x, pts[i].y);
   }
 
-  ctx.strokeStyle = '#3ddc97';
+  ctx.strokeStyle = '#76ffdc';
   ctx.lineWidth = 2.5;
   ctx.lineJoin = 'round';
   ctx.stroke();
@@ -71,8 +75,8 @@ function drawChart() {
   ctx.lineTo(pts[0].x, h);
   ctx.closePath();
   const grad = ctx.createLinearGradient(0, 0, 0, h);
-  grad.addColorStop(0, 'rgba(61, 220, 151, 0.30)');
-  grad.addColorStop(1, 'rgba(61, 220, 151, 0)');
+  grad.addColorStop(0, 'rgba(118, 255, 220, 0.30)');
+  grad.addColorStop(1, 'rgba(118, 255, 220, 0)');
   ctx.fillStyle = grad;
   ctx.fill();
 }
@@ -94,23 +98,46 @@ async function frissitStatusz() {
 
     if (!s.online) throw new Error('offline');
 
-    pill.classList.add('online');
-    pill.classList.remove('offline');
-    text.textContent  = 'Online';
-    count.textContent = s.players;
-    slots.textContent = `${s.players} / ${s.maxplayers} slot`;
+    if (pill) {
+      pill.classList.add('online');
+      pill.classList.remove('offline');
+    }
+    if (text) text.textContent = 'Online';
+    if (count) count.textContent = s.players;
+    if (slots) slots.textContent = `${s.players} / ${s.maxplayers} slot`;
     if (s.gamemode && mode) mode.textContent = s.gamemode;
 
     chartData = Array.isArray(s.history) ? s.history : [];
     drawChart();
   } catch (e) {
-    pill.classList.remove('online');
-    pill.classList.add('offline');
-    text.textContent  = 'Offline';
-    count.textContent = '0';
-    slots.textContent = '– / – slot';
+    if (pill) {
+      pill.classList.remove('online');
+      pill.classList.add('offline');
+    }
+    if (text) text.textContent = 'Offline';
+    if (count) count.textContent = '0';
+    if (slots) slots.textContent = '– / – slot';
   }
 }
 
 frissitStatusz();
 setInterval(frissitStatusz, 15000);
+
+// ---------- Hóesés ki/be kapcsoló ----------
+function toggleSnow() {
+  const snow = document.getElementById('snow-canvas');
+  if (!snow) return;
+  const hidden = snow.style.display === 'none';
+  snow.style.display = hidden ? 'block' : 'none';
+  try {
+    localStorage.setItem('sledgemta_snow', hidden ? '1' : '0');
+  } catch (_) {}
+}
+
+(() => {
+  try {
+    const saved = localStorage.getItem('sledgemta_snow');
+    const snow = document.getElementById('snow-canvas');
+    if (saved === '0' && snow) snow.style.display = 'none';
+  } catch (_) {}
+})();
