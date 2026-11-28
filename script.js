@@ -141,3 +141,78 @@ function toggleSnow() {
     if (saved === '0' && snow) snow.style.display = 'none';
   } catch (_) {}
 })();
+
+// ---------- Automatikus hóesés minden oldalon ----------
+(() => {
+  function initSnow() {
+    let canvas = document.getElementById('snow-canvas');
+    if (!canvas) {
+      canvas = document.createElement('canvas');
+      canvas.id = 'snow-canvas';
+      canvas.style.position = 'fixed';
+      canvas.style.top = '0';
+      canvas.style.left = '0';
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
+      canvas.style.pointerEvents = 'none';
+      canvas.style.zIndex = '9999';
+      document.body.appendChild(canvas);
+    }
+
+    try {
+      const saved = localStorage.getItem('sledgemta_snow');
+      if (saved === '0') canvas.style.display = 'none';
+    } catch (_) {}
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    const flakes = Array.from({ length: 42 }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      r: Math.random() * 2.1 + 0.8,
+      speedY: Math.random() * 0.75 + 0.35,
+      speedX: Math.random() * 0.4 - 0.2,
+      opacity: Math.random() * 0.48 + 0.22
+    }));
+
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+      if (canvas.style.display !== 'none') {
+        for (const f of flakes) {
+          ctx.beginPath();
+          ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(241, 248, 255, ${f.opacity})`;
+          ctx.fill();
+
+          f.y += f.speedY;
+          f.x += f.speedX;
+
+          if (f.y > height) {
+            f.y = -5;
+            f.x = Math.random() * width;
+          }
+          if (f.x > width) f.x = 0;
+          if (f.x < 0) f.x = width;
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+
+    draw();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSnow);
+  } else {
+    initSnow();
+  }
+})();
