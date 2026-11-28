@@ -1,17 +1,24 @@
 :root {
-    --bg-main: #212429;
-    --bg-card: #191c20;
-    --bg-card-hover: #1d2025;
-    --bg-nav: rgba(18, 20, 24, 0.92);
+    --bg-main: #181c22;
+    --bg-card: #14181e;
+    --bg-card-hover: #191e26;
+    --bg-nav: rgba(14, 18, 24, 0.92);
     --mint: #76ffdc;
     --mint-dim: rgba(118, 255, 220, 0.15);
     --mint-glow: rgba(118, 255, 220, 0.35);
+    --xmas-red: #d92b3a;
+    --xmas-red-dark: #9e1b27;
+    --xmas-pine: #1b4d38;
+    --xmas-snow: #f1f8ff;
+    --xmas-ice-border: rgba(241, 248, 255, 0.18);
     --text-primary: #f1f5f9;
     --text-secondary: #94a3b8;
-    --border-subtle: rgba(255, 255, 255, 0.06);
+    --border-subtle: rgba(241, 248, 255, 0.09);
 }
 
-* {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -20,6 +27,10 @@
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg-main);
+    background-image:
+        radial-gradient(circle at 15% 12%, rgba(118, 255, 220, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 85% 20%, rgba(217, 43, 58, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 50% 90%, rgba(27, 77, 56, 0.14) 0%, transparent 55%);
     color: var(--text-primary);
     min-height: 100vh;
     display: flex;
@@ -39,7 +50,8 @@ body {
     height: 64px;
     background: var(--bg-nav);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--xmas-ice-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
     z-index: 1000;
 }
 
@@ -88,7 +100,7 @@ body {
 }
 
 .nav-menu a.nav-download {
-    color: #fde047;
+    color: #ff6b78;
 }
 
 /* Hero Banner */
@@ -107,7 +119,7 @@ body {
     position: absolute;
     inset: 0;
     background: url('https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-    filter: brightness(0.45) saturate(0.8);
+    filter: brightness(0.38) saturate(0.85) hue-rotate(15deg);
     transform: scale(1.03);
 }
 
@@ -116,8 +128,8 @@ body {
     inset: 0;
     background: linear-gradient(
         180deg,
-        rgba(17, 36, 33, 0.65) 0%,
-        rgba(25, 42, 40, 0.75) 55%,
+        rgba(27, 77, 56, 0.45) 0%,
+        rgba(20, 28, 38, 0.78) 58%,
         var(--bg-main) 100%
     );
 }
@@ -132,7 +144,7 @@ body {
     width: 105px;
     height: auto;
     margin-bottom: 14px;
-    filter: drop-shadow(0 0 18px var(--mint-glow));
+    filter: drop-shadow(0 0 18px var(--mint-glow)) drop-shadow(0 6px 14px rgba(217, 43, 58, 0.25));
     animation: floatLogo 4s ease-in-out infinite;
 }
 
@@ -146,14 +158,15 @@ body {
     font-weight: 700;
     letter-spacing: -0.3px;
     margin-bottom: 6px;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.65);
 }
 
 .subtitle {
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 2.5px;
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--xmas-snow);
+    opacity: 0.82;
 }
 
 /* Fő tartalom és kártyák */
@@ -180,19 +193,22 @@ body {
 
 .server-card {
     background-color: var(--bg-card);
-    border-radius: 6px;
-    border: 1px solid var(--border-subtle);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    border-radius: 8px;
+    border: 1px solid var(--xmas-ice-border);
+    border-top: 2px solid rgba(241, 248, 255, 0.5);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.12);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     overflow: hidden;
-    transition: transform 0.25s ease, border-color 0.25s ease;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .server-card:hover {
     transform: translateY(-3px);
-    border-color: rgba(118, 255, 220, 0.25);
+    background-color: var(--bg-card-hover);
+    border-color: rgba(118, 255, 220, 0.45);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.5), 0 0 22px rgba(118, 255, 220, 0.14);
 }
 
 .card-header {
@@ -224,6 +240,7 @@ body {
 .status-pill.online {
     background: var(--mint-dim);
     color: var(--mint);
+    border: 1px solid rgba(118, 255, 220, 0.25);
 }
 
 .status-pill.online .dot {
@@ -235,8 +252,9 @@ body {
 }
 
 .status-pill.version {
-    background: rgba(255, 255, 255, 0.06);
-    color: var(--text-secondary);
+    background: rgba(217, 43, 58, 0.16);
+    color: #ff8a94;
+    border: 1px solid rgba(217, 43, 58, 0.3);
 }
 
 .card-emblem {
@@ -249,7 +267,7 @@ body {
 .card-logo-img {
     width: 95px;
     height: auto;
-    filter: drop-shadow(0 0 12px rgba(118, 255, 220, 0.25));
+    filter: drop-shadow(0 0 12px rgba(118, 255, 220, 0.28));
 }
 
 /* Grafikon terület */
@@ -301,7 +319,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding-bottom: 11px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid rgba(241, 248, 255, 0.06);
     font-size: 13.5px;
 }
 
@@ -329,9 +347,9 @@ body {
 }
 
 .copy-ip-btn {
-    background: rgba(118, 255, 220, 0.08);
-    border: 1px solid rgba(118, 255, 220, 0.25);
-    color: var(--mint);
+    background: rgba(217, 43, 58, 0.14);
+    border: 1px solid rgba(217, 43, 58, 0.45);
+    color: #ff9ba3;
     padding: 5px 10px;
     border-radius: 4px;
     font-family: 'Inter', monospace;
@@ -345,7 +363,9 @@ body {
 }
 
 .copy-ip-btn:hover {
-    background: rgba(118, 255, 220, 0.18);
+    background: rgba(217, 43, 58, 0.26);
+    border-color: var(--mint);
+    color: var(--mint);
 }
 
 .connect-box {
@@ -360,18 +380,21 @@ body {
     gap: 10px;
     width: 100%;
     padding: 12px;
-    background: var(--mint);
-    color: #111618;
+    background: linear-gradient(135deg, var(--xmas-red), var(--xmas-red-dark));
+    border: 1px solid rgba(241, 248, 255, 0.24);
+    color: #ffffff;
     font-weight: 700;
     font-size: 14px;
     border-radius: 5px;
     text-decoration: none;
+    box-shadow: 0 4px 16px rgba(217, 43, 58, 0.32);
     transition: 0.2s;
 }
 
 .btn-connect:hover {
-    background: #5ef3cd;
-    box-shadow: 0 0 20px rgba(118, 255, 220, 0.35);
+    background: linear-gradient(135deg, #e63646, var(--xmas-red));
+    border-color: var(--mint);
+    box-shadow: 0 0 22px rgba(118, 255, 220, 0.25);
 }
 
 .copy-toast {
@@ -387,8 +410,8 @@ body {
 .card-actions {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    background: #14171a;
-    border-top: 1px solid var(--border-subtle);
+    background: #101419;
+    border-top: 1px solid var(--xmas-ice-border);
     padding: 14px 10px;
 }
 
@@ -435,8 +458,8 @@ body {
     padding: 20px;
     font-size: 12.5px;
     color: var(--text-secondary);
-    border-top: 1px solid var(--border-subtle);
-    background: #181a1e;
+    border-top: 1px solid var(--xmas-ice-border);
+    background: #13171d;
 }
 
 /* Mobil nézet */
@@ -454,16 +477,19 @@ body {
 }
 
 .status-pill.offline {
-  color: #ff5a5a;
-  background: rgba(255, 90, 90, 0.12);
+    color: #ff6b78;
+    background: rgba(217, 43, 58, 0.16);
+    border: 1px solid rgba(217, 43, 58, 0.3);
 }
+
 .status-pill.offline .dot {
-  background: #ff5a5a;
+    background: #ff6b78;
 }
 
 /* Szekció alapok */
-.client-section, .news-section {
-    background-color: #1c1f22;
+.client-section,
+.news-section {
+    background-color: #161a20;
     color: #e4e6eb;
     padding: 60px 20px;
 }
@@ -498,10 +524,11 @@ body {
     width: 100%;
     max-width: 420px;
     height: 250px;
-    background: #111315;
-    border: 10px solid #0d0e10;
+    background: #0d1014;
+    border: 10px solid #090b0e;
+    border-top-color: rgba(241, 248, 255, 0.35);
     border-radius: 10px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 80px rgba(46, 179, 128, 0.15);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 70px rgba(118, 255, 220, 0.14);
     overflow: hidden;
     position: relative;
 }
@@ -509,7 +536,7 @@ body {
 .monitor-screen {
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at center, #252a30 0%, #14171a 100%);
+    background: radial-gradient(circle at center, #1d2b2a 0%, #101419 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -520,6 +547,7 @@ body {
 .monitor-screen .screen-logo {
     width: 72px;
     height: auto;
+    filter: drop-shadow(0 0 12px rgba(118, 255, 220, 0.25));
 }
 
 .monitor-screen span {
@@ -532,24 +560,26 @@ body {
 .monitor-stand {
     width: 56px;
     height: 32px;
-    background: linear-gradient(180deg, #0d0e10, #222529);
+    background: linear-gradient(180deg, #0b0d10, #1e232a);
 }
 
 .monitor-base {
     width: 150px;
     height: 8px;
-    background: #151719;
+    background: #12161b;
     border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.55);
 }
 
 /* Kliens letöltő kártya */
 .client-card {
     flex: 1 1 480px;
-    background-color: #16181a;
+    background-color: #12161b;
+    border: 1px solid var(--xmas-ice-border);
+    border-top: 2px solid rgba(241, 248, 255, 0.45);
     border-radius: 8px;
     padding: 32px 36px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.38);
     text-align: center;
 }
 
@@ -562,7 +592,7 @@ body {
 .client-card .subtitle {
     font-weight: 700;
     margin-bottom: 8px;
-    color: #f1f3f5;
+    color: var(--mint);
 }
 
 .client-card .desc {
@@ -591,17 +621,20 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background-color: #36b37e;
+    background: linear-gradient(135deg, var(--xmas-red), var(--xmas-red-dark));
+    border: 1px solid rgba(241, 248, 255, 0.24);
     color: #ffffff;
     font-weight: 600;
     padding: 12px 24px;
     border-radius: 6px;
     text-decoration: none;
-    transition: background-color 0.2s ease, transform 0.15s ease;
+    box-shadow: 0 4px 16px rgba(217, 43, 58, 0.3);
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
 }
 
 .btn-download:hover {
-    background-color: #2d996b;
+    background: linear-gradient(135deg, #e63646, var(--xmas-red));
+    border-color: var(--mint);
     transform: translateY(-1px);
 }
 
@@ -613,10 +646,12 @@ body {
 }
 
 .req-card {
-    background-color: #16181a;
+    background-color: #12161b;
+    border: 1px solid var(--xmas-ice-border);
+    border-top: 2px solid rgba(241, 248, 255, 0.4);
     border-radius: 8px;
     padding: 28px 32px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.34);
 }
 
 .req-card h3 {
@@ -633,13 +668,13 @@ body {
 }
 
 .req-card li strong {
-    color: #ffffff;
+    color: var(--mint);
 }
 
 /* Hírek szekció */
 .news-section {
     padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    border-top: 1px solid var(--xmas-ice-border);
 }
 
 .section-title {
@@ -657,10 +692,11 @@ body {
 }
 
 .news-item {
-    background-color: #16181a;
+    background-color: #12161b;
+    border: 1px solid rgba(241, 248, 255, 0.1);
     padding: 22px 26px;
     border-radius: 8px;
-    border-left: 4px solid #36b37e;
+    border-left: 4px solid var(--xmas-red);
 }
 
 .news-date {
@@ -688,7 +724,7 @@ body {
 .load-more-btn {
     background: none;
     border: none;
-    color: #3b9eff;
+    color: var(--mint);
     font-size: 0.95rem;
     cursor: pointer;
     display: inline-flex;
@@ -702,9 +738,9 @@ body {
 
 /* Közösségi média sáv */
 .social-banner {
-    background: linear-gradient(135deg, #25282c 0%, #1c1e22 50%, #26292e 100%);
+    background: linear-gradient(135deg, #1b4d38 0%, #151920 50%, #3b131b 100%);
     padding: 55px 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid var(--xmas-ice-border);
 }
 
 .social-grid {
@@ -719,19 +755,21 @@ body {
     width: 110px;
     height: 110px;
     border-radius: 50%;
-    background-color: #17191b;
+    background-color: #12161b;
+    border: 1px solid var(--xmas-ice-border);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 2.6rem;
     text-decoration: none;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .social-circle:hover {
     transform: translateY(-4px);
-    background-color: #1f2226;
+    background-color: #191f27;
+    border-color: var(--mint);
 }
 
 .social-circle.discord { color: #5865F2; }
@@ -741,11 +779,12 @@ body {
 
 /* Lábléc */
 .site-footer {
-    background-color: #141618;
+    background-color: #101419;
     color: #d0d5dd;
     text-align: center;
     padding: 28px 20px;
     font-size: 0.9rem;
+    border-top: 1px solid var(--xmas-ice-border);
 }
 
 .site-footer .copyright {
@@ -759,7 +798,7 @@ body {
 
 .footer-links a,
 .contact-line a {
-    color: #3b9eff;
+    color: var(--mint);
     text-decoration: none;
 }
 
